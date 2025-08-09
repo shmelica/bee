@@ -1,0 +1,26 @@
+# Общие
+.DS_Store
+.env
+.env.*.local
+*.log
+
+# Laravel (bee-srv)
+bee-srv/vendor/
+bee-srv/storage/*.key
+bee-srv/storage/app/*
+!bee-srv/storage/app/.gitkeep
+bee-srv/storage/framework/*
+!bee-srv/storage/framework/.gitkeep
+bee-srv/storage/logs/*
+!bee-srv/storage/logs/.gitkeep
+bee-srv/public/storage
+bee-srv/node_modules/
+bee-srv/.idea/
+bee-srv/.vscode/
+
+# React (bee-ui)
+bee-ui/node_modules/
+bee-ui/dist/
+bee-ui/.vite/
+bee-ui/.idea/
+bee-ui/.vscode/

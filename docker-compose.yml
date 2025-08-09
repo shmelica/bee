@@ -1,0 +1,49 @@
+services:
+    app:
+        build:
+            context: ./bee-srv
+            dockerfile: Dockerfile
+        container_name: bee-laravel-app
+        working_dir: /var/www
+        volumes:
+            - ./bee-srv:/var/www
+        depends_on:
+            - mysql
+        networks:
+            - bee-net
+
+    nginx:
+        image: nginx:stable-alpine
+        container_name: bee-nginx
+        ports:
+            - "8080:80"
+        volumes:
+            - ./bee-srv:/var/www
+            - ./bee-srv/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+        networks:
+            - bee-net
+
+    mysql:
+        image: mysql:8.0
+        container_name: bee-mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+        ports:
+            - "3307:3306"
+        volumes:
+            - mysql-data:/var/lib/mysql
+        networks:
+            - bee-net
+
+networks:
+    bee-net:
+        driver: bridge
+
+volumes:
+    mysql-data:
